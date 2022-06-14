@@ -5,14 +5,10 @@ import {
   DisplayProcessor,
 } from 'jasmine-spec-reporter';
 
-console.log('aloalo');
-
 // jasmine.SuiteInfo
 class CustomProcessor extends DisplayProcessor {
   public displayJasmineStarted(info: any, log: string): string {
-    console.log('abbababababab');
-    console.log('abcabcbababcbabcab', info);
-    return `${log}`;
+    return `${log} alo ok nhe`;
   }
 }
 

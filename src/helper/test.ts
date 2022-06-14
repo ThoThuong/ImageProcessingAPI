@@ -1,4 +1,7 @@
 export class TestUniTest {
+  plus = (a:number, b: number): number => {
+    return a + b;
+  }
   sync() {
     return "sync";
   }

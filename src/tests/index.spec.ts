@@ -24,4 +24,11 @@ describe("TestUniTest", () => {
     const value = await o.asyncPromise();
     expect(value).toEqual("asyncPromise");
   });
+
+  it("plus", () => {
+    const a = 1;
+    const b = 2;
+    const plus = a + b;
+    expect(plus).toEqual(3)
+  });
 });
