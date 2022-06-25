@@ -31,4 +31,4 @@ const processImage = async (req: Request, res: Response) => {
   return image.pipe(res);
 };
 
-export default processImage;
+export { processImage };

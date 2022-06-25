@@ -8,7 +8,7 @@ import {
 // jasmine.SuiteInfo
 class CustomProcessor extends DisplayProcessor {
   public displayJasmineStarted(info: any, log: string): string {
-    return `${log} alo ok nhe`;
+    return `${log} alo ok nhe ${info}`;
   }
 }
 
@@ -22,6 +22,3 @@ jasmine.getEnv().addReporter(
     customProcessors: [CustomProcessor],
   })
 );
-
-jasmine.loadConfigFile('jasmine.json');
-jasmine.execute();

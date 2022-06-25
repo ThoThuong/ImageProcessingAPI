@@ -22,4 +22,4 @@ const cleanupDirectory = async (
   next();
 };
 
-export default cleanupDirectory;
+export { cleanupDirectory };
