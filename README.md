@@ -39,5 +39,4 @@
         height: is mandatory key and to pass the number of height you want to resize your image
         image: is mandatory key and to pass your image which you want to resize
 
-
-    ![The result image testing on the postman tool](CollectionPostman/Screen Shot 2022-07-31 at 02.18.59.png)
+![The result image testing on the postman tool](CollectionPostman/Screen Shot 2022-07-31 at 02.18.59.png)
