@@ -40,3 +40,8 @@
         image: is mandatory key and to pass your image which you want to resize
 
 ![The result image testing on the postman tool](CollectionPostman/Screen Shot 2022-07-31 at 02.18.59.png)
+
+<p align="center">
+  <img src="your_relative_path_here" width="350" title="hover text">
+  <img src="CollectionPostman/Screen Shot 2022-07-31 at 02.18.59.png" alt="The result image testing on the postman tool">
+</p>
