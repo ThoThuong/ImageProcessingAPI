@@ -1,0 +1,51 @@
+{
+	"info": {
+		"_postman_id": "f9192ee4-9577-4243-8d2b-31fce6f0af0b",
+		"name": "ImageProcessingAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "resize",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/Users/tranngocthuong/Downloads/fallow-deer-7341424.jpg"
+						},
+						{
+							"key": "width",
+							"value": "640",
+							"type": "default"
+						},
+						{
+							"key": "height",
+							"value": "246",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/resize",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"resize"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

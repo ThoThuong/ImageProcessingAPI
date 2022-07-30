@@ -5,7 +5,7 @@ import Resize from '../helper/resize';
 import path from 'path';
 import fs from 'fs';
 
-const FILE_PATH = '../uploads';
+const FILE_PATH = '../../uploads';
 
 const processImage = async (req: Request, res: Response) => {
   const imagePath = path.join(__dirname, FILE_PATH);

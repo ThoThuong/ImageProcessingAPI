@@ -15,13 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.cleanupDirectory = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const FILE_PATH = 'src/uploads';
+const FILE_PATH = '../../uploads';
 const cleanupDirectory = (_req, _res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    yield fs_1.default.readdir(FILE_PATH, (err, files) => {
+    const _file_path = path_1.default.join(__dirname, FILE_PATH);
+    yield fs_1.default.readdir(_file_path, (err, files) => {
         if (err)
             throw err;
         for (const file of files) {
-            const filePath = path_1.default.join(FILE_PATH, file);
+            const filePath = path_1.default.join(_file_path, file);
             fs_1.default.unlink(filePath, (err) => {
                 if (err)
                     throw err;

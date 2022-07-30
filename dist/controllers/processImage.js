@@ -40,7 +40,7 @@ const uuid = __importStar(require("uuid"));
 const resize_1 = __importDefault(require("../helper/resize"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
-const FILE_PATH = '../uploads';
+const FILE_PATH = '../../uploads';
 const processImage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e;
     const imagePath = path_1.default.join(__dirname, FILE_PATH);

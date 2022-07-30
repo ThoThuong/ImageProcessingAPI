@@ -13,36 +13,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("jasmine");
+const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const supertest_1 = __importDefault(require("supertest"));
-const form_data_1 = __importDefault(require("form-data"));
+const __1 = __importDefault(require(".."));
 const resize_1 = __importDefault(require("../helper/resize"));
-const index_1 = __importDefault(require("../index"));
-const form = new form_data_1.default();
 const FILE_PATH = '../tests';
 describe('Resize', () => {
     let rs;
-    let folderPath = '/Users/tranngocthuong/projects/ImageProcessingAPI/src/uploads/';
-    let request = (0, supertest_1.default)(index_1.default);
+    let folderPath = path_1.default.join(__dirname, './uploads/');
+    let request = (0, supertest_1.default)(__1.default);
     beforeAll(() => {
         rs = new resize_1.default(folderPath);
     });
-    // it('save', async () => {
-    //   let width = 1000;
-    //   let height = 1000;
-    //   let fileName = 'testing-result.jpeg';
-    //   let buff = fs.readFileSync('src/tests/testing-image.jpeg');
-    //   const filePathAfterResize = await rs.save(width, height, fileName, buff);
-    //   expect(filePathAfterResize).toEqual(`${path.join(__dirname, FILE_PATH)}/${fileName}`);
-    // });
-    // it('filepath', () => {
-    //   const fileName = 'testing-result.jpeg';
-    //   const filePath = rs.filepath(fileName);
-    //   expect(filePath).toEqual(`${folderPath}${fileName}`);
-    // });
+    it('save', () => __awaiter(void 0, void 0, void 0, function* () {
+        let width = 1000;
+        let height = 1000;
+        let fileName = 'testing-result.jpeg';
+        let buff = fs_1.default.readFileSync('src/tests/testing-image.jpeg');
+        const filePathAfterResize = yield rs.save(width, height, fileName, buff);
+        expect(filePathAfterResize).toEqual(`${folderPath}${fileName}`);
+    }));
+    it('filepath', () => {
+        const fileName = 'testing-result.jpeg';
+        const filePath = rs.filepath(fileName);
+        expect(filePath).toEqual(`${folderPath}${fileName}`);
+    });
     it('Resize valid request', () => __awaiter(void 0, void 0, void 0, function* () {
         let fileName = 'testing-image.jpeg';
-        const filePath = `${path_1.default.join(__dirname, FILE_PATH)}/${fileName}`;
+        const filePath = `${folderPath}/${fileName}`;
         request.post('/resize')
             .set('Content-Type', 'multipart/form-data;')
             .field('width', 500)

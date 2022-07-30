@@ -11,7 +11,7 @@ const FILE_PATH = '../tests';
 
 describe('Resize', () => {
   let rs: Resize;
-  let folderPath = '/Users/tranngocthuong/projects/ImageProcessingAPI/src/uploads/';
+  let folderPath = path.join(__dirname, './uploads/')
   let request = supertest(app);
 
   beforeAll(() => {
@@ -24,7 +24,7 @@ describe('Resize', () => {
     let fileName = 'testing-result.jpeg';
     let buff = fs.readFileSync('src/tests/testing-image.jpeg');
     const filePathAfterResize = await rs.save(width, height, fileName, buff);
-    expect(filePathAfterResize).toEqual(`${path.join(__dirname, FILE_PATH)}/${fileName}`);
+    expect(filePathAfterResize).toEqual(`${folderPath}${fileName}`);
   });
 
   it('filepath', () => {
@@ -36,7 +36,7 @@ describe('Resize', () => {
 
   it('Resize valid request', async () => {
     let fileName = 'testing-image.jpeg';
-    const filePath = `${path.join(__dirname, FILE_PATH)}/${fileName}`;
+    const filePath = `${folderPath}/${fileName}`;
 
     request.post('/resize')
       .set('Content-Type', 'multipart/form-data;')

@@ -2,17 +2,18 @@ import { NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 import path from 'path';
 
-const FILE_PATH = 'src/uploads';
+const FILE_PATH = '../../uploads';
 
 const cleanupDirectory = async (
   _req: Request,
   _res: Response,
   next: NextFunction
 ): Promise<void> => {
-  await fs.readdir(FILE_PATH, (err: Error | null, files: string[]) => {
+  const _file_path = path.join(__dirname, FILE_PATH);
+  await fs.readdir(_file_path, (err: Error | null, files: string[]) => {
     if (err) throw err;
     for (const file of files) {
-      const filePath = path.join(FILE_PATH, file);
+      const filePath = path.join(_file_path, file);
       fs.unlink(filePath, (err: Error | null) => {
         if (err) throw err;
       });
