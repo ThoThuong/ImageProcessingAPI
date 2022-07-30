@@ -1,24 +1,16 @@
-import "jasmine";
-import {
-  SpecReporter,
-  StacktraceOption,
-  DisplayProcessor,
-} from 'jasmine-spec-reporter';
+import { DisplayProcessor, SpecReporter, StacktraceOption } from "jasmine-spec-reporter";
+import SuiteInfo = jasmine.SuiteInfo;
 
-// jasmine.SuiteInfo
 class CustomProcessor extends DisplayProcessor {
-  public displayJasmineStarted(info: any, log: string): string {
-    return `${log} alo ok nhe ${info}`;
+  public displayJasmineStarted(info: SuiteInfo, log: string): string {
+    return `${log}`;
   }
 }
 
 jasmine.getEnv().clearReporters();
-jasmine.getEnv().addReporter(
-  new SpecReporter({
-    spec: {
-      displayPending: true,
-      displayStacktrace: StacktraceOption.NONE,
-    },
-    customProcessors: [CustomProcessor],
-  })
-);
+jasmine.getEnv().addReporter(new SpecReporter({
+  spec: {
+    displayStacktrace: StacktraceOption.NONE
+  },
+  customProcessors: [CustomProcessor],
+}));

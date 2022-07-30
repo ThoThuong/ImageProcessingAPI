@@ -1,92 +1,76 @@
-import "jasmine";
+import 'jasmine';
 
-// class
-import { TestUniTest } from './../helper/test';
-import Resize from '../helper/resize'; 
+import fs from 'fs';
+import path from 'path';
+import supertest from 'supertest';
 
-// function
-import { processImage } from '../controllers/processImage';
-import { cleanupDirectory } from '../middleware/cleanupStorage';
-import { uploadSingleImage } from '../middleware/uploadImage';
-import { readFileSync } from "fs";
-import { buffer } from "stream/consumers";
+import app from '..';
+import Resize from '../helper/resize';
 
-describe("TestUniTest", () => {
-  let o: TestUniTest;
+const FILE_PATH = '../tests';
 
-  beforeEach(() => {
-    o = new TestUniTest();
-  });
-
-  it("sync", () => {
-    expect(o.sync()).toEqual("sync");
-  });
-
-  it("asyncCallback", (done) => {
-    o.asyncCallback((value) => {
-      expect(value).toEqual("asyncCallback");
-      done();
-    });
-  });
-
-  it("asyncPromise", async () => {
-    const value = await o.asyncPromise();
-    expect(value).toEqual("asyncPromise");
-  });
-
-  it("plus", () => {
-    const a = 1;
-    const b = 2;
-    const plus = a + b;
-    expect(plus).toEqual(3)
-  });
-});
-
-describe('Resize', () => { 
-  console.log('Stating => Resize ...');
-
+describe('Resize', () => {
   let rs: Resize;
-  let folderPath = '/Users/tranngocthuong/projects/ImageProcessingAPI/src/uploads/'; 
+  let folderPath = '/Users/tranngocthuong/projects/ImageProcessingAPI/src/uploads/';
+  let request = supertest(app);
 
-  beforeEach(() => {
+  beforeAll(() => {
     rs = new Resize(folderPath);
   });
 
-  it('save', async() => {
+  it('save', async () => {
     let width = 1000;
     let height = 1000;
-    let fileName = '12312312.jpeg'
-    let buffer = Buffer.from(`data:image/jpeg;base64, 312312321312312.jpeg`);
-
-    const filePathAfterResize = await rs.save(width, height, fileName, buffer);
-    expect(filePathAfterResize).toEqual("asyncPromise");
+    let fileName = 'testing-result.jpeg';
+    let buff = fs.readFileSync('src/tests/testing-image.jpeg');
+    const filePathAfterResize = await rs.save(width, height, fileName, buff);
+    expect(filePathAfterResize).toEqual(`${path.join(__dirname, FILE_PATH)}/${fileName}`);
   });
 
   it('filepath', () => {
+    const fileName = 'testing-result.jpeg';
+    const filePath = rs.filepath(fileName);
+    expect(filePath).toEqual(`${folderPath}${fileName}`);
+  });
+
+
+  it('Resize valid request', async () => {
+    let fileName = 'testing-image.jpeg';
+    const filePath = `${path.join(__dirname, FILE_PATH)}/${fileName}`;
+
+    request.post('/resize')
+      .set('Content-Type', 'multipart/form-data;')
+      .field('width', 500)
+      .field('height', 400)
+      .attach('image', filePath)
+      .expect(201);
 
   });
 
-})
+  it('Resize invalid request: missing image file', async () => {
+    request.post('/resize')
+      .set('Content-Type', 'multipart/form-data;')
+      .field('width', 500)
+      .field('height', 400)
+      .expect(404);
 
-// describe('processImage', () => { 
-//   console.log('processImage');
-  
-//   it('placeholder', () => {
+  });
 
-//   })
-// });
 
-// describe('cleanupDirectory', () => { 
-//   console.log('cleanupDirectory');
-//   it('placeholder', () => {
+  it('Resize invalid request: missing width info and image file to resize', async () => {
+    request.post('/resize')
+      .set('Content-Type', 'multipart/form-data;')
+      .field('height', 400)
+      .expect(404);
+  });
 
-//   })
+  it('Resize invalid request: missing height info and image file to resize', async () => {
+    request.post('/resize')
+      .set('Content-Type', 'multipart/form-data;')
+      .field('width', 400)
+      .expect(404);
+  });
 
-// })
+});
 
-// describe('uploadSingleImage', () => { 
-//   console.log('uploadSingleImage');
-//   it('placeholder', () => {
 
-//   })
-// })

@@ -12,8 +12,16 @@ const processImage = async (req: Request, res: Response) => {
   const fileUpload = new Resize(imagePath);
 
   let { width, height } = req.body;
+  if (!width || !height) {
+    return res.status(404).json({ error: 'Please provide parameter width and height' });
+  }
+
   width = parseInt(width);
   height = parseInt(height);
+
+  if (typeof width !== 'number' || typeof height !== 'number') {
+    return res.status(404).json({ error: 'Please provide parameter width and height' });
+  }
 
   const ext: string[] = req.file?.mimetype.split('/') ?? [];
   const extImage = ext.length > 1 ? ext[ext.length - 1] : 'png';
@@ -22,13 +30,15 @@ const processImage = async (req: Request, res: Response) => {
 
   const buffer = req.file?.buffer;
   if (!req.file || !buffer) {
-    res.status(404).json({ error: 'Please provide an image' });
-  }
+    return res.status(404).json({ error: 'Please provide an image' });
+  };
 
   const filePath = await fileUpload.save(width, height, filename, buffer);
   const image = fs.createReadStream(filePath);
 
-  return image.pipe(res);
+  const imageResponse = image.pipe(res);
+  res.status(201)
+  return imageResponse;
 };
 
 export { processImage };

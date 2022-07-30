@@ -35,6 +35,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.processImage = void 0;
 const uuid = __importStar(require("uuid"));
 const resize_1 = __importDefault(require("../helper/resize"));
 const path_1 = __importDefault(require("path"));
@@ -45,17 +46,26 @@ const processImage = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const imagePath = path_1.default.join(__dirname, FILE_PATH);
     const fileUpload = new resize_1.default(imagePath);
     let { width, height } = req.body;
+    if (!width || !height) {
+        return res.status(404).json({ error: 'Please provide parameter width and height' });
+    }
     width = parseInt(width);
     height = parseInt(height);
+    if (typeof width !== 'number' || typeof height !== 'number') {
+        return res.status(404).json({ error: 'Please provide parameter width and height' });
+    }
     const ext = (_b = (_a = req.file) === null || _a === void 0 ? void 0 : _a.mimetype.split('/')) !== null && _b !== void 0 ? _b : [];
     const extImage = ext.length > 1 ? ext[ext.length - 1] : 'png';
     const filename = (_d = (_c = req.file) === null || _c === void 0 ? void 0 : _c.originalname) !== null && _d !== void 0 ? _d : `${uuid.v4}_${extImage}`;
     const buffer = (_e = req.file) === null || _e === void 0 ? void 0 : _e.buffer;
     if (!req.file || !buffer) {
-        res.status(404).json({ error: 'Please provide an image' });
+        return res.status(404).json({ error: 'Please provide an image' });
     }
+    ;
     const filePath = yield fileUpload.save(width, height, filename, buffer);
     const image = fs_1.default.createReadStream(filePath);
-    return image.pipe(res);
+    const imageResponse = image.pipe(res);
+    res.status(201);
+    return imageResponse;
 });
-exports.default = processImage;
+exports.processImage = processImage;
