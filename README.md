@@ -40,4 +40,4 @@
         image: is mandatory key and to pass your image which you want to resize
 
 
-    ![](CollectionPostman/fallow-deer-7341424.jpg.png)
+    ![](CollectionPostman/ImageProcessingAPI.postman_collection.json)
