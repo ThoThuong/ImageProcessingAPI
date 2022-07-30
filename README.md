@@ -1,20 +1,20 @@
-# ImageProcessingAPI instruction to start project.
+# Instruction to start the ImageProcessingAPI project.
 
-## step 1:
+## Step 1:
 
     Open the ImageProcessingAPI project folder.
 
     Type the command and press up on the enter button following the steps below on the VSCode terminal console or the windows console or the console macOS window to launch this project.
 
-## step 2 (install dependency):
+## Step 2 (Install Dependencies):
 
     npm i
 
-## step 3 (build project):
+## Step 3 (Build project):
 
     npm run build
 
-## Start project step:
+## Step 4 (Start project):
 
     => To run on product mode:
     npm run start
@@ -22,7 +22,7 @@
     => To run on dev mode:
     npm run dev
 
-## Run the Unit test step:
+## Step 5 (Run the Unit test):
 
     => To run test:
     npm run test
