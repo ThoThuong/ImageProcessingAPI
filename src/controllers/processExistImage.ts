@@ -4,11 +4,12 @@ import fs from 'fs';
 import path from 'path';
 import Resize from '../helper/resize';
 
-const FILE_PATH = '../uploads';
+const FILE_PATH = '../../uploads';
 
 const processExistImage = async (req: Request, res: Response) => {
     try {
         let pathToGetImageToResize = path.join(__dirname, FILE_PATH);
+
         const resizeInstance = new Resize(pathToGetImageToResize);
 
         let { filename, height, width } = req.query;
@@ -18,22 +19,29 @@ const processExistImage = async (req: Request, res: Response) => {
         }
 
         let _width = parseInt(width as string);
-        let _height = parseInt(height as string);
-        let _filename = String(filename)
-
-
-        if (typeof _width !== 'number' || typeof _height !== 'number') {
-            return res.status(404).json({ error: 'Please provide parameter width and height and filename' });
+        if (!Number.isInteger(_width) && !(_width > 0) && !(typeof _width === 'number')) {
+            return res.status(404).json({ error: 'Please provide the width parameter valid to resize.' });
         }
 
+        let _height = parseInt(height as string);
+        if (!Number.isInteger(_height) && !(_height > 0) && !(typeof _height === 'number')) {
+            return res.status(404).json({ error: 'Please provide the height parameter valid to resize.' });
+        }
+
+        let _filename = String(filename);
         pathToGetImageToResize = `${pathToGetImageToResize}/fulls/${_filename}`;
         if (fs.existsSync(pathToGetImageToResize)) {
-            const resizedImage = await resizeInstance.resizeExistImage(pathToGetImageToResize, _height, _width);
-            const pathToSaveImageFileResized = path.join(__dirname, `../uploads/thumbnails/${_filename}`);
-            await fsPromises.writeFile(`${pathToSaveImageFileResized}`, resizedImage);
-            res.status(200).sendFile(path.resolve(`${pathToSaveImageFileResized}`));
+            const pathToSaveImageFileResized = path.join(__dirname, `../../uploads/thumbnails/${_filename}`);
+            if (fs.existsSync(pathToSaveImageFileResized)) {
+                return res.status(200).sendFile(path.resolve(`${pathToSaveImageFileResized}`));
+            } else {
+                const resizedImage = await resizeInstance.resizeExistImage(pathToGetImageToResize, _height, _width);
+                await fsPromises.writeFile(`${pathToSaveImageFileResized}`, resizedImage);
+                return res.status(200).sendFile(path.resolve(`${pathToSaveImageFileResized}`));
+            }
+
         } else {
-            throw new Error(`Could found any image with file name is ${_filename}`);
+            throw new Error(`Could not found any image with file name is ${_filename}`);
         }
 
     } catch (err: any) {

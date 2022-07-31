@@ -5,7 +5,7 @@ import Resize from '../helper/resize';
 import path from 'path';
 import fs from 'fs';
 
-const FILE_PATH = '../../uploads';
+const FILE_PATH = '../../uploads/images_tmp';
 
 const processImage = async (req: Request, res: Response) => {
   const imagePath = path.join(__dirname, FILE_PATH);
@@ -17,10 +17,15 @@ const processImage = async (req: Request, res: Response) => {
   }
 
   width = parseInt(width);
+
+  if (!Number.isInteger(width) && !(width > 0) && !(typeof width === 'number')) {
+    return res.status(404).json({ error: 'Please provide the width parameter valid to resize.' });
+  }
+
   height = parseInt(height);
 
-  if (typeof width !== 'number' || typeof height !== 'number') {
-    return res.status(404).json({ error: 'Please provide parameter width and height' });
+  if (!Number.isInteger(height) && !(height > 0) && !(typeof height === 'number')) {
+    return res.status(404).json({ error: 'Please provide the height parameter valid to resize.' });
   }
 
   const ext: string[] = req.file?.mimetype.split('/') ?? [];
@@ -34,6 +39,7 @@ const processImage = async (req: Request, res: Response) => {
   };
 
   const filePath = await fileUpload.save(width, height, filename, buffer);
+  console.log(filePath, 'ádasdasd')
   const image = fs.createReadStream(filePath);
 
   const imageResponse = image.pipe(res);

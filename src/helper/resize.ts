@@ -21,10 +21,12 @@ class Resize {
         withoutEnlargement: false,
       })
       .toFile(filepath);
+
     return filepath;
   }
 
   filepath(filename: string): string {
+
     return path.resolve(`${this.folder}/${filename}`);
   }
 

@@ -40,7 +40,7 @@ const uuid = __importStar(require("uuid"));
 const resize_1 = __importDefault(require("../helper/resize"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
-const FILE_PATH = '../../uploads';
+const FILE_PATH = '../../uploads/images_tmp';
 const processImage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e;
     const imagePath = path_1.default.join(__dirname, FILE_PATH);
@@ -50,9 +50,12 @@ const processImage = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         return res.status(404).json({ error: 'Please provide parameter width and height' });
     }
     width = parseInt(width);
+    if (!Number.isInteger(width) && !(width > 0) && !(typeof width === 'number')) {
+        return res.status(404).json({ error: 'Please provide the width parameter valid to resize.' });
+    }
     height = parseInt(height);
-    if (typeof width !== 'number' || typeof height !== 'number') {
-        return res.status(404).json({ error: 'Please provide parameter width and height' });
+    if (!Number.isInteger(height) && !(height > 0) && !(typeof height === 'number')) {
+        return res.status(404).json({ error: 'Please provide the height parameter valid to resize.' });
     }
     const ext = (_b = (_a = req.file) === null || _a === void 0 ? void 0 : _a.mimetype.split('/')) !== null && _b !== void 0 ? _b : [];
     const extImage = ext.length > 1 ? ext[ext.length - 1] : 'png';
@@ -63,6 +66,7 @@ const processImage = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
     ;
     const filePath = yield fileUpload.save(width, height, filename, buffer);
+    console.log(filePath, 'ádasdasd');
     const image = fs_1.default.createReadStream(filePath);
     const imageResponse = image.pipe(res);
     res.status(201);

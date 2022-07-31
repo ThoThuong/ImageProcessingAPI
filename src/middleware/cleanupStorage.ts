@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 import path from 'path';
 
-const FILE_PATH = '../../uploads';
+const FILE_PATH = '../../uploads/images_tmp';
 
 const cleanupDirectory = async (
   _req: Request,
