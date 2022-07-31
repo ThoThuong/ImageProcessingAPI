@@ -27,6 +27,20 @@ class Resize {
   filepath(filename: string): string {
     return path.resolve(`${this.folder}/${filename}`);
   }
+
+  resizeExistImage = (
+    pathToGetImageToResize: string,
+    height: number,
+    width: number
+  ): Promise<Buffer> => {
+    return sharp(path.resolve(`${pathToGetImageToResize}`))
+      .resize({
+        height: height,
+        width: width,
+      })
+      .toBuffer();
+  };
+
 }
 
 export default Resize;

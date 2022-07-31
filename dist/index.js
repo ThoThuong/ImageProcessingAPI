@@ -34,10 +34,12 @@ const main_1 = __importDefault(require("./routers/main"));
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 const app = (0, express_1.default)();
-// app.use(express.static('public'));
+app.use(express_1.default.static('public'));
 app.use((0, morgan_1.default)('dev'));
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
+// app.set('views', path.join(__dirname, './views'));
+// app.set('view engine', 'ejs');
 app.use('/', main_1.default);
 app.listen(PORT, () => {
     console.info(`Server is starting at port: ${PORT}`);

@@ -16,6 +16,14 @@ const sharp_1 = __importDefault(require("sharp"));
 const path_1 = __importDefault(require("path"));
 class Resize {
     constructor(folder) {
+        this.resizeExistImage = (pathToGetImageToResize, height, width) => {
+            return (0, sharp_1.default)(path_1.default.resolve(`${pathToGetImageToResize}`))
+                .resize({
+                height: height,
+                width: width,
+            })
+                .toBuffer();
+        };
         this.folder = folder;
     }
     save(width, height, filename, buffer) {
