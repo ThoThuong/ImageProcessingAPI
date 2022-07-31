@@ -47,7 +47,7 @@
         4) http://127.0.0.1:3000/?filename=rufous.jpg&width=400&height=500
 
 <p align="center">
-  <img src="CollectionPostman/CollectionPostman/Screen Shot 2022-07-31 at 10.38.38.png" alt="The result image testing on the postman tool">
+  <img src="CollectionPostman/Screen Shot 2022-07-31 at 10.38.38.png" alt="The result image testing on the postman tool">
 </p>
 
 ## To Testing API on browser.
