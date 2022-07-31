@@ -38,7 +38,7 @@ describe('Resize', () => {
     let fileName = 'testing-image.jpeg';
     const filePath = `${folderPath}/${fileName}`;
 
-    request.post('/resize')
+    request.get('/resize')
       .set('Content-Type', 'multipart/form-data;')
       .field('width', 500)
       .field('height', 400)
@@ -48,7 +48,7 @@ describe('Resize', () => {
   });
 
   it('Resize invalid request: missing image file', async () => {
-    request.post('/resize')
+    request.get('/resize')
       .set('Content-Type', 'multipart/form-data;')
       .field('width', 500)
       .field('height', 400)
@@ -58,14 +58,14 @@ describe('Resize', () => {
 
 
   it('Resize invalid request: missing width info and image file to resize', async () => {
-    request.post('/resize')
+    request.get('/resize')
       .set('Content-Type', 'multipart/form-data;')
       .field('height', 400)
       .expect(404);
   });
 
   it('Resize invalid request: missing height info and image file to resize', async () => {
-    request.post('/resize')
+    request.get('/resize')
       .set('Content-Type', 'multipart/form-data;')
       .field('width', 400)
       .expect(404);

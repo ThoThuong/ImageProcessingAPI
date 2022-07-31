@@ -8,10 +8,10 @@ const processImage_1 = require("../controllers/processImage");
 const uploadImage_1 = require("../middleware/uploadImage");
 const cleanupStorage_1 = require("../middleware/cleanupStorage");
 const router = express_1.default.Router();
-router.get('/', (_, res) => {
-    res.json({
-        message: 'Good healthy 🌍',
-    });
-});
-router.post('/resize', cleanupStorage_1.cleanupDirectory, uploadImage_1.uploadSingleImage, processImage_1.processImage);
+// router.get('/', (_: Request, res: Response) => {
+//   res.json({
+//     message: 'Good healthy 🌍',
+//   });
+// });
+router.get('/resize', cleanupStorage_1.cleanupDirectory, uploadImage_1.uploadSingleImage, processImage_1.processImage);
 exports.default = router;

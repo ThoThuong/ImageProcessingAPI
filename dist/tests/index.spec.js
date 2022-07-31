@@ -42,7 +42,7 @@ describe('Resize', () => {
     it('Resize valid request', () => __awaiter(void 0, void 0, void 0, function* () {
         let fileName = 'testing-image.jpeg';
         const filePath = `${folderPath}/${fileName}`;
-        request.post('/resize')
+        request.get('/resize')
             .set('Content-Type', 'multipart/form-data;')
             .field('width', 500)
             .field('height', 400)
@@ -50,20 +50,20 @@ describe('Resize', () => {
             .expect(201);
     }));
     it('Resize invalid request: missing image file', () => __awaiter(void 0, void 0, void 0, function* () {
-        request.post('/resize')
+        request.get('/resize')
             .set('Content-Type', 'multipart/form-data;')
             .field('width', 500)
             .field('height', 400)
             .expect(404);
     }));
     it('Resize invalid request: missing width info and image file to resize', () => __awaiter(void 0, void 0, void 0, function* () {
-        request.post('/resize')
+        request.get('/resize')
             .set('Content-Type', 'multipart/form-data;')
             .field('height', 400)
             .expect(404);
     }));
     it('Resize invalid request: missing height info and image file to resize', () => __awaiter(void 0, void 0, void 0, function* () {
-        request.post('/resize')
+        request.get('/resize')
             .set('Content-Type', 'multipart/form-data;')
             .field('width', 400)
             .expect(404);

@@ -32,7 +32,7 @@
     Install postman app and then import the collection file in folder CollectionPostman. in the collection we have one folder call is ImageProcessingAPI and in this folder we have one request to resize image.
 
     The enpoint is: http://127.0.0.1:3000/resize
-    The method to send data to server is post
+    The method to send data to server is GET
     The type of the body of the request is form-data:
 
         widh: is mandatory key and to pass the number of width you want to resize your image.
@@ -40,5 +40,5 @@
         image: is mandatory key and to pass your image which you want to resize
 
 <p align="center">
-  <img src="CollectionPostman/Screen Shot 2022-07-31 at 02.18.59.png" alt="The result image testing on the postman tool">
+  <img src="CollectionPostman/CollectionPostman/Screen Shot 2022-07-31 at 10.38.38.png" alt="The result image testing on the postman tool">
 </p>
