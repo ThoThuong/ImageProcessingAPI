@@ -31,10 +31,17 @@ const processExistImage = async (req: Request, res: Response) => {
         let _filename = String(filename);
         pathToGetImageToResize = `${pathToGetImageToResize}/fulls/${_filename}`;
         if (fs.existsSync(pathToGetImageToResize)) {
-            const pathToSaveImageFileResized = path.join(__dirname, `../../uploads/thumbnails/${_filename}`);
+
+            const newFileNameArr = _filename.split('.');
+            const ext = newFileNameArr.pop();
+            let newFileName = `${newFileNameArr.join('')}x${_width}x${_height}.${ext}`;
+            const pathToSaveImageFileResized = path.join(__dirname, `../../uploads/thumbnails/${newFileName}`);
+
             if (fs.existsSync(pathToSaveImageFileResized)) {
+                console.log('111')
                 return res.status(200).sendFile(path.resolve(`${pathToSaveImageFileResized}`));
             } else {
+                console.log('222')
                 const resizedImage = await resizeInstance.resizeExistImage(pathToGetImageToResize, _height, _width);
                 await fsPromises.writeFile(`${pathToSaveImageFileResized}`, resizedImage);
                 return res.status(200).sendFile(path.resolve(`${pathToSaveImageFileResized}`));
