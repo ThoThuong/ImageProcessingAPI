@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.uploadSingleImage = void 0;
-const multer_1 = __importDefault(require("multer"));
-const storage = multer_1.default.memoryStorage();
-const uploadSingleImage = (0, multer_1.default)({ storage: storage }).single('image');
+var multer_1 = __importDefault(require("multer"));
+var storage = multer_1.default.memoryStorage();
+var uploadSingleImage = (0, multer_1.default)({ storage: storage }).single('image');
 exports.uploadSingleImage = uploadSingleImage;

@@ -26,20 +26,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const body_parser_1 = __importDefault(require("body-parser"));
-const dotenv = __importStar(require("dotenv"));
-const express_1 = __importDefault(require("express"));
-const morgan_1 = __importDefault(require("morgan"));
-const main_1 = __importDefault(require("./routers/main"));
+var body_parser_1 = __importDefault(require("body-parser"));
+var dotenv = __importStar(require("dotenv"));
+var express_1 = __importDefault(require("express"));
+var morgan_1 = __importDefault(require("morgan"));
+var main_1 = __importDefault(require("./routers/main"));
 dotenv.config();
-const PORT = process.env.PORT || 3000;
-const app = (0, express_1.default)();
+var PORT = process.env.PORT || 3000;
+var app = (0, express_1.default)();
 app.use(express_1.default.static('public'));
 app.use((0, morgan_1.default)('dev'));
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use('/', main_1.default);
-app.listen(PORT, () => {
-    console.info(`Server is starting at port: ${PORT}`);
+app.listen(PORT, function () {
+    console.info("Server is starting at port: ".concat(PORT));
 });
 exports.default = app;
