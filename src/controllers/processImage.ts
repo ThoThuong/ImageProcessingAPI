@@ -36,7 +36,7 @@ const processImage = async (req: Request, res: Response) => {
   const buffer = req.file?.buffer;
   if (!req.file || !buffer) {
     return res.status(404).json({ error: 'Please provide an image' });
-  };
+  }
 
   const filePath = await fileUpload.save(width, height, filename, buffer);
   console.log(filePath, 'ádasdasd')

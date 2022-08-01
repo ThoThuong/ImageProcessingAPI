@@ -64,7 +64,6 @@ const processImage = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     if (!req.file || !buffer) {
         return res.status(404).json({ error: 'Please provide an image' });
     }
-    ;
     const filePath = yield fileUpload.save(width, height, filename, buffer);
     console.log(filePath, 'ádasdasd');
     const image = fs_1.default.createReadStream(filePath);

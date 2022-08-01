@@ -1,8 +1,9 @@
-import express, { Request, Response } from 'express';
-import { processImage } from '../controllers/processImage';
-import { uploadSingleImage } from '../middleware/uploadImage';
-import { cleanupDirectory } from '../middleware/cleanupStorage';
+import express from 'express';
+
 import { processExistImage } from '../controllers/processExistImage';
+import { processImage } from '../controllers/processImage';
+import { cleanupDirectory } from '../middleware/cleanupStorage';
+import { uploadSingleImage } from '../middleware/uploadImage';
 
 const router = express.Router();
 
